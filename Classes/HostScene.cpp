@@ -131,7 +131,7 @@ bool HostScene::init()
   
   auto menu = Menu::create(host, client, NULL);
   menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 20));
-  menu->alignItemsHorizontallyWithPadding(visibleSize.width / 4);
+  menu->alignItemsHorizontallyWithPadding(visibleSize.width / 5);
   this->addChild(menu);
   
   return true;

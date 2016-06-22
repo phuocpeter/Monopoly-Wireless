@@ -162,7 +162,7 @@ bool PlayerScene::init()
   _recipentName = "Bank";
   
   // Amount Textfield
-  auto amountField = ui::TextField::create("Số Lượng Để Chuyển", "fonts/arial.ttf", 20.0f);
+  auto amountField = ui::TextField::create("Số lượng để chuyển", "fonts/arial.ttf", 20.0f);
   amountField->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                 _recipentLabel->getPositionY() - 40));
   amountField->addEventListener(CC_CALLBACK_2(PlayerScene::amountTextFieldEvent, this));
