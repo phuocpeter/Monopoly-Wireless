@@ -39,6 +39,27 @@ bool HostScene::init()
   auto visibleSize = Director::getInstance()->getVisibleSize();
   Vec2 origin = Director::getInstance()->getVisibleOrigin();
   
+  // Exit button
+  auto exitBtn = ui::Button::create("res/x-64.png");
+  exitBtn->setPosition(Vec2(origin.x + exitBtn->getContentSize().width / 4,
+                            origin.y + visibleSize.height - exitBtn->getContentSize().height / 4));
+  exitBtn->setScale(0.5);
+  // Lambda function for exiting
+  exitBtn->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type){
+    switch (type)
+    {
+      case ui::Widget::TouchEventType::ENDED:
+        Director::getInstance()->end();
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+          exit(0);
+        #endif
+        break;
+      default:
+        break;
+    }
+  });
+  this->addChild(exitBtn);
+  
   // Server Address textfield
   auto *serverField = ui::TextField::create("Địa chỉ Server", "fonts/arial.ttf", 20.0f);
   serverField->setPosition(Vec2(origin.x + visibleSize.width / 2,

@@ -70,6 +70,28 @@ bool BankScene::init()
     _player4 = Json_getString(json, "4", "NULL");
   }
   
+  // Exit button
+  auto exitBtn = ui::Button::create("res/x-64.png");
+  exitBtn->setPosition(Vec2(origin.x + exitBtn->getContentSize().width / 4,
+                            origin.y + visibleSize.height - exitBtn->getContentSize().height / 4));
+  exitBtn->setScale(0.5);
+  // Lambda function for exiting
+  exitBtn->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type){
+    switch (type)
+    {
+      case ui::Widget::TouchEventType::ENDED:
+        Director::getInstance()->end();
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+          exit(0);
+        #endif
+        break;
+      default:
+        break;
+    }
+  });
+  this->addChild(exitBtn);
+
+  
   // Transfer Label
   auto transferLabel = Label::createWithTTF("GIAO DỊCH", "fonts/arial.ttf", 20.0f);
   //sessionLabel->setAnchorPoint(Vec2(0.5, 1));

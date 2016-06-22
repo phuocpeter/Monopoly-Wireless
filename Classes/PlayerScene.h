@@ -60,6 +60,7 @@ private:
   const char* _player3;
   int _numOfPlayers;
   int _amount;
+  int _money;
 };
 
 #endif /* __PLAYER_SCENE_H__ */

@@ -60,7 +60,7 @@ bool PlayerScene::init()
   _sessionID = Json_getString(json, "sessionID", "NULL");
   _numOfPlayers = Json_getInt(json, "numOfPlayers", -1);
   _playerName = Json_getString(json, "playerName", "NULL");
-  int money = Json_getInt(json, "money", -1);
+  _money = Json_getInt(json, "money", -1);
   int playerNo = Json_getInt(json, "playerNo", -1);
   
   // Initialize players for player slider
@@ -92,6 +92,27 @@ bool PlayerScene::init()
       break;
   }
   
+  // Exit button
+  auto exitBtn = ui::Button::create("res/x-64.png");
+  exitBtn->setPosition(Vec2(origin.x + exitBtn->getContentSize().width / 4,
+                            origin.y + visibleSize.height - exitBtn->getContentSize().height / 4));
+  exitBtn->setScale(0.5);
+  // Lambda function for exiting
+  exitBtn->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type){
+    switch (type)
+    {
+      case ui::Widget::TouchEventType::ENDED:
+        Director::getInstance()->end();
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+          exit(0);
+        #endif
+        break;
+      default:
+        break;
+    }
+  });
+  this->addChild(exitBtn);
+  
   // Session Label
   std::string sessionString = "Mã Game: " + (std::string)_sessionID;
   auto sessionLabel = Label::createWithTTF(sessionString, "fonts/arial.ttf", 20.0f);
@@ -108,7 +129,7 @@ bool PlayerScene::init()
   this->addChild(playerLabel);
   
   // Money Label
-  std::string moneyString = "Tiền: " + std::to_string(money);
+  std::string moneyString = "Tiền: " + std::to_string(_money);
   auto moneyLabel = Label::createWithTTF(moneyString, "fonts/arial.ttf", 20.0f);
   moneyLabel->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                playerLabel->getPositionY() - 40));
@@ -203,7 +224,7 @@ bool PlayerScene::init()
     
     auto menu = Menu::create(playerTab, bank, NULL);
     menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 20));
-    menu->alignItemsHorizontallyWithPadding(visibleSize.width / 4);
+    menu->alignItemsHorizontallyWithPadding(visibleSize.width / 5);
     this->addChild(menu);
   }
   
@@ -238,6 +259,8 @@ void PlayerScene::sendButtonTapped(cocos2d::Ref *sender, ui::Widget::TouchEventT
   switch (type) {
     case ui::Widget::TouchEventType::ENDED:
       if (_amount > 0) {
+        if (_amount <= _money) {
+          // Check if money is sufficent to send
         _loadingBar->setPercent(5);
         // Execute when amount is entered
         _plainSendData = "fromBank=false&recipent=" + _recipentName + "&amount=" + std::to_string(_amount) + "&sessionID=" + _sessionID + "&sender=" + _playerName;
@@ -246,6 +269,14 @@ void PlayerScene::sendButtonTapped(cocos2d::Ref *sender, ui::Widget::TouchEventT
         _request->setRequestData(_dataToSend, strlen(_dataToSend));
         network::HttpClient::getInstance()->send(_request);
         _loadingBar->setPercent(20);
+        } else {
+          // Display error for insufficent money
+          _loadingPlaceholder->setVisible(false);
+          _loadingBar->setPercent(0);
+          _errorLabel->setTextColor(Color4B::RED);
+          _errorLabel->setString("Bạn không có đủ tiền để gửi");
+          _errorLabel->setVisible(true);
+        }
       } else {
         // Display error
         _loadingPlaceholder->setVisible(false);
