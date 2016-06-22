@@ -80,13 +80,13 @@ bool HostScene::init()
   this->addChild(_createSessionBtn);
   
   // Loading Bar placeholder
-  auto loadingPlaceholder = Sprite::create("Slider_Back.png");
+  auto loadingPlaceholder = Sprite::create("res/Slider_Back.png");
   loadingPlaceholder->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                        _createSessionBtn->getPositionY() - 40));
   this->addChild(loadingPlaceholder);
   
   // Loading Bar
-  _loadingBar = ui::LoadingBar::create("Slider_PressBar.png");
+  _loadingBar = ui::LoadingBar::create("res/Slider_PressBar.png");
   _loadingBar->setPercent(0);
   _loadingBar->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                 _createSessionBtn->getPositionY() - 40));

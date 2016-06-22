@@ -122,10 +122,10 @@ bool PlayerScene::init()
   
   // Player Slider
   auto slider = ui::Slider::create();
-  slider->loadBarTexture("Slider_Back.png");
-  slider->loadSlidBallTextureNormal("SliderNode_Normal.png");
-  slider->loadSlidBallTexturePressed("SliderNode_Press.png");
-  slider->loadSlidBallTextureDisabled("SliderNode_Disable.png");
+  slider->loadBarTexture("res/Slider_Back.png");
+  slider->loadSlidBallTextureNormal("res/SliderNode_Normal.png");
+  slider->loadSlidBallTexturePressed("res/SliderNode_Press.png");
+  slider->loadSlidBallTextureDisabled("res/SliderNode_Disable.png");
   slider->setPosition(Vec2(origin.x + visibleSize.width / 2,
                            transferLabel->getPositionY() - 40));
   // Disable the slider if there are less than 2 player
@@ -148,28 +148,28 @@ bool PlayerScene::init()
   this->addChild(amountField);
   
   // Send button
-  _sendBtn = ui::Button::create("touchid-64.png");
+  _sendBtn = ui::Button::create("res/touchid-64.png");
   _sendBtn->setPosition(Vec2(origin.x + visibleSize.width / 2 - 48,
                              amountField->getPositionY() - 50));
   _sendBtn->addTouchEventListener(CC_CALLBACK_2(PlayerScene::sendButtonTapped, this));
   this->addChild(_sendBtn);
   
   // Refresh button
-  _refreshBtn = ui::Button::create("refresh-64.png");
+  _refreshBtn = ui::Button::create("res/refresh-64.png");
   _refreshBtn->setPosition(Vec2(origin.x + visibleSize.width / 2 + 48,
                                 amountField->getPositionY() - 50));
   _refreshBtn->addTouchEventListener(CC_CALLBACK_2(PlayerScene::refreshButtonTapped, this));
   this->addChild(_refreshBtn);
   
   // Loading Bar placeholder
-  _loadingPlaceholder = Sprite::create("Slider_Back.png");
+  _loadingPlaceholder = Sprite::create("res/Slider_Back.png");
   _loadingPlaceholder->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                         _refreshBtn->getPositionY() - 50));
   _loadingPlaceholder->setVisible(false);
   this->addChild(_loadingPlaceholder);
   
   // Loading Bar
-  _loadingBar = ui::LoadingBar::create("Slider_PressBar.png");
+  _loadingBar = ui::LoadingBar::create("res/Slider_PressBar.png");
   _loadingBar->setPercent(0);
   _loadingBar->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                 _refreshBtn->getPositionY() - 50));
@@ -192,7 +192,7 @@ bool PlayerScene::init()
   // Display Bank tab if the player is host
   if (playerNo == 1) {
     // Create menu tab
-    auto playerMenuLabel = Label::createWithTTF("Người C  1hơi", "fonts/arial.ttf", 20.0f);
+    auto playerMenuLabel = Label::createWithTTF("Người Chơi", "fonts/arial.ttf", 20.0f);
     auto playerTab = MenuItemLabel::create(playerMenuLabel);
     playerTab->setEnabled(true);
     

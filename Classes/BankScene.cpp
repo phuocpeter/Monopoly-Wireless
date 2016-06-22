@@ -79,10 +79,10 @@ bool BankScene::init()
   
   // Player Slider
   auto slider = ui::Slider::create();
-  slider->loadBarTexture("Slider_Back.png");
-  slider->loadSlidBallTextureNormal("SliderNode_Normal.png");
-  slider->loadSlidBallTexturePressed("SliderNode_Press.png");
-  slider->loadSlidBallTextureDisabled("SliderNode_Disable.png");
+  slider->loadBarTexture("res/Slider_Back.png");
+  slider->loadSlidBallTextureNormal("res/SliderNode_Normal.png");
+  slider->loadSlidBallTexturePressed("res/SliderNode_Press.png");
+  slider->loadSlidBallTextureDisabled("res/SliderNode_Disable.png");
   slider->setPercent(12.5f);
   slider->setPosition(Vec2(origin.x + visibleSize.width / 2,
                            transferLabel->getPositionY() - 40));
@@ -108,20 +108,20 @@ bool BankScene::init()
   this->addChild(amountTextField);
   
   // Send money button
-  _sendBtn = ui::Button::create("touchid-64.png");
+  _sendBtn = ui::Button::create("res/touchid-64.png");
   _sendBtn->setPosition(Vec2(origin.x + visibleSize.width / 2,
                              amountTextField->getPositionY() - 50));
   _sendBtn->addTouchEventListener(CC_CALLBACK_2(BankScene::sendButtonTapped, this));
   this->addChild(_sendBtn);
   
   // Loading Bar placeholder
-  auto loadingPlaceholder = Sprite::create("Slider_Back.png");
+  auto loadingPlaceholder = Sprite::create("res/Slider_Back.png");
   loadingPlaceholder->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                        _sendBtn->getPositionY() - 50));
   this->addChild(loadingPlaceholder);
   
   // Loading Bar
-  _loadingBar = ui::LoadingBar::create("Slider_PressBar.png");
+  _loadingBar = ui::LoadingBar::create("res/Slider_PressBar.png");
   _loadingBar->setPosition(Vec2(origin.x + visibleSize.width / 2,
                                 _sendBtn->getPositionY() - 50));
   _loadingBar->setPercent(0);
@@ -154,7 +154,7 @@ bool BankScene::init()
   
   auto menu = Menu::create(playerTab, bank, NULL);
   menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 20));
-  menu->alignItemsHorizontallyWithPadding(visibleSize.width / 4);
+  menu->alignItemsHorizontallyWithPadding(visibleSize.width / 5);
   this->addChild(menu);
   
   return true;
