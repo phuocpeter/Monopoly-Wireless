@@ -255,3 +255,4 @@ void HostScene::onHttpRequestCompleted(network::HttpClient *sender, network::Htt
   }
 
 }
+

@@ -26,9 +26,9 @@ public:
   
   // Handle button click
   void createSessionEvent(Ref* sender, ui::Widget::TouchEventType type);
-  
   void clientSceneChange(Ref* sender);
   
+  // Handle network
   void onHttpRequestCompleted(network::HttpClient *sender, network::HttpResponse *response);
   
 private:
